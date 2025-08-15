@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct HomeView: View {
-    let arrItems = ["MVVM + Async_Await"]
+    let arrItems = ["MVVM + Async_Await","Async let"]
     var body: some View {
         VStack {
             List(arrItems,id: \.self) { item in
@@ -23,6 +23,8 @@ struct HomeView: View {
         .navigationDestination(for: String.self) { value in
             if value == "MVVM + Async_Await"{
                 ProductListView()
+            }else if value == "Async let"{
+                AsyncLetView()
             }
         }
         

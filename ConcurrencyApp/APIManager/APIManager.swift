@@ -9,17 +9,17 @@ import Foundation
 
 
 protocol DataManagerDelegate {
-    func getProducts(strURL:String) async throws->[Product]?
+    func getProducts<T:Decodable>(strURL:String) async throws->T?
 }
 
 
 
 class APIManager : DataManagerDelegate{
-    func getProducts(strURL:String) async throws->[Product]?{
+    func getProducts<T:Decodable>(strURL:String) async throws->T?{
         guard let url = URL(string: strURL) else {
             throw URLError(.badURL)
         }
         let (data,_) = try await URLSession.shared.data(from: url)
-        return try JSONDecoder().decode([Product].self, from: data)
+        return try JSONDecoder().decode(T.self, from: data)
     }
 }
