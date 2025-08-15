@@ -18,7 +18,10 @@ class ProductViewModel : ObservableObject{
             print(error)
         }
     }
-    func getProduct(productId:Int) async {
+    func getProduct(productId:Int) async throws{
+        if productId == 1{
+            throw URLError(.badURL)
+        }
         do{
             async let product : Product? = try await APIManager().getProducts(strURL: "\(Constant.productURL)/\(productId)")
             if let product = try await product{

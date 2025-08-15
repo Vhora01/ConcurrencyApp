@@ -35,7 +35,12 @@ struct AsyncLetView : View {
         })
         .task {
             for index in 1...5{
-                await productVM.getProduct(productId:index)
+                do{
+                    try Task.checkCancellation()
+                    try await productVM.getProduct(productId:index)
+                }catch{
+                    print(error)
+                }
             }
             
         }
